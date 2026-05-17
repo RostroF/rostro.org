@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>rostro.org — Your name on the blockchain</title>
+  <meta name="description" content="RNS gives your wallet a real name and a real web address. Built on Rostro." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg'><defs><radialGradient id='w' cx='38%25' cy='32%25' r='68%25'><stop offset='0%25' stop-color='%23e0304a'/><stop offset='55%25' stop-color='%23a8182e'/><stop offset='100%25' stop-color='%235c0812'/></radialGradient><radialGradient id='d' cx='38%25' cy='32%25' r='68%25'><stop offset='0%25' stop-color='%23801020'/><stop offset='100%25' stop-color='%233a060e'/></radialGradient></defs><circle cx='32' cy='32' r='30' fill='url(%23w)'/><circle cx='32' cy='32' r='26.5' fill='none' stroke='%23f090a0' stroke-width='1.2' opacity='.35'/><circle cx='32' cy='32' r='23' fill='url(%23d)'/><circle cx='32' cy='32' r='20' fill='none' stroke='%23f090a0' stroke-width='.8' opacity='.25'/><text x='32' y='45' text-anchor='middle' font-family='Georgia,serif' font-size='28' font-weight='bold' fill='%23f4b8c4' opacity='.92'>R</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    /* Strip Bootstrap font overrides our fonts take over */
+    *, *::before, *::after { font-family: inherit; }
+  </style>
+  <style>
+    :root {
+      --bg:        #f7f5f2;
+      --bg-2:      #f0ede8;
+      --surface:   #ffffff;
+      --border:    #e2ddd8;
+      --border-hi: #ccc8c2;
+      --text:      #5a5550;
+      --text-dim:  #9e9890;
+      --text-hi:   #1a1714;
+      --red:       #c41010;
+      --red-hi:    #a80d0d;
+      --red-lo:    rgba(196,16,16,.06);
+      --red-mid:   rgba(196,16,16,.14);
+      --serif:     'Instrument Serif', Georgia, serif;
+      --sans:      'DM Sans', system-ui, sans-serif;
+    }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans) !important;
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, h4, h5, h6 { font-family: var(--serif) !important; }
+    .nav-wordmark, .search-btn, .nav-cta, .nav-link-item,
+    .section-label, .hero-eyebrow, .feature-card p, .flow-step p,
+    .section-lead, .hero-sub, p, li, a, button, input, select {
+      font-family: var(--sans) !important;
+    }
+    h3, h4 { font-family: var(--sans) !important; }
+
+    /* ── Nav ── */
+    .site-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: rgba(247,245,242,.94);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      height: 60px;
+      display: flex;
+      align-items: center;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .nav-wordmark {
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-hi);
+      letter-spacing: -.02em;
+      white-space: nowrap;
+    }
+    .nav-wordmark span { color: var(--red); }
+    .nav-link-item {
+      font-size: 13px;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color .12s;
+    }
+    .nav-link-item:hover { color: var(--text-hi); }
+    .nav-cta {
+      font-size: 13px;
+      font-weight: 500;
+      color: #fff !important;
+      background: var(--red);
+      padding: 8px 20px;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: background .15s;
+      white-space: nowrap;
+    }
+    .nav-cta:hover { background: var(--red-hi); }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 130px 0 80px;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 24px;
+    }
+    .eyebrow-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--red);
+      opacity: .5;
+      flex-shrink: 0;
+    }
+    h1 {
+      font-family: var(--serif);
+      font-size: clamp(40px, 7vw, 76px);
+      font-weight: 400;
+      color: var(--text-hi);
+      line-height: 1.08;
+      letter-spacing: -.02em;
+      margin-bottom: 24px;
+    }
+    h1 em { font-style: italic; color: var(--red); }
+    .hero-sub {
+      font-size: 17px;
+      font-weight: 300;
+      color: var(--text);
+      line-height: 1.72;
+      margin-bottom: 32px;
+    }
+
+    /* ── Search bar ── */
+    .search-bar {
+      display: flex;
+      align-items: center;
+      background: var(--surface);
+      border: 1.5px solid var(--border-hi);
+      border-radius: 12px;
+      padding: 6px 6px 6px 18px;
+      gap: 8px;
+      transition: border-color .18s, box-shadow .18s;
+      margin-bottom: 10px;
+    }
+    .search-bar:focus-within {
+      border-color: var(--red);
+      box-shadow: 0 0 0 3px var(--red-lo);
+    }
+    .search-bar input {
+      flex: 1;
+      background: none;
+      border: none;
+      outline: none;
+      font-family: var(--sans);
+      font-size: 15px;
+      color: var(--text-hi);
+      min-width: 0;
+    }
+    .search-bar input::placeholder { color: var(--text-dim); }
+    .search-divider {
+      width: 1px; height: 22px;
+      background: var(--border);
+      flex-shrink: 0;
+    }
+    .network-fixed {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-dim);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .search-btn {
+      background: var(--red);
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background .14s;
+    }
+    .search-btn:hover { background: var(--red-hi); }
+    @media (max-width: 480px) {
+      .search-bar { padding: 5px 5px 5px 12px; gap: 4px; }
+      .search-bar input { font-size: 14px; }
+      .network-fixed { font-size: 11px; }
+      .search-divider { display: none; }
+      .search-btn { padding: 9px 14px; font-size: 13px; border-radius: 8px; }
+    }
+    .testnet-notice {
+      font-size: 12px;
+      font-weight: 500;
+      color: #15803d;
+      margin-top: 10px;
+    }
+
+    /* ── Result card ── */
+    .result-card {
+      margin-top: 14px;
+      border-radius: 12px;
+      border: 1.5px solid var(--border);
+      background: var(--surface);
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,.06);
+      animation: fadeup .3s ease forwards;
+    }
+    .result-card.available { border-color: #86efac; }
+    .result-card.taken     { border-color: #fca5a5; }
+    .result-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 20px;
+    }
+    .result-icon {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+    .result-icon.green { background: #f0fdf4; }
+    .result-icon.red   { background: #fef2f2; }
+    .result-icon.grey  { background: var(--bg-2); }
+    .result-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-hi);
+      letter-spacing: -.01em;
+    }
+    .result-name span { color: var(--text-dim); font-weight: 400; }
+    .result-status { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+    .result-status.green { color: #15803d; }
+    .result-status.red   { color: #b91c1c; }
+    .result-bottom {
+      border-top: 1px solid var(--border);
+      background: var(--bg);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .testnet-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-dim);
+      background: var(--bg-2);
+      border: 1px solid var(--border-hi);
+      padding: 4px 10px;
+      border-radius: 100px;
+    }
+    .testnet-pill::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #d97706;
+      flex-shrink: 0;
+    }
+    .beta-btn {
+      font-size: 12px;
+      font-weight: 600;
+      color: #fff;
+      background: var(--red);
+      padding: 6px 16px;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: background .14s;
+      white-space: nowrap;
+    }
+    .beta-btn:hover { background: var(--red-hi); }
+    .spinner {
+      display: inline-block;
+      width: 16px; height: 16px;
+      border: 2px solid var(--border-hi);
+      border-top-color: var(--red);
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .searching-msg { margin-top: 12px; font-size: 13px; color: var(--text-dim); }
+
+    /* ── Hero card ── */
+    .hero-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 32px rgba(0,0,0,.06), 0 1px 3px rgba(0,0,0,.04);
+    }
+    .card-bar {
+      background: var(--bg-2);
+      border-bottom: 1px solid var(--border);
+      padding: 13px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .card-dots { display: flex; gap: 5px; }
+    .card-dots span { width: 9px; height: 9px; border-radius: 50%; background: var(--border-hi); }
+    .card-url {
+      flex: 1;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-family: 'SF Mono', monospace;
+      color: var(--text-dim);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .card-url strong { color: var(--text-hi); }
+    .card-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+      gap: 12px;
+    }
+    .card-row:last-child { border-bottom: none; }
+    .card-key {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      flex-shrink: 0;
+    }
+    .card-val {
+      font-family: 'SF Mono', monospace;
+      font-size: 12px;
+      color: var(--text-hi);
+      text-align: right;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .card-val.red { color: var(--red); font-family: var(--sans); font-weight: 500; font-size: 13px; }
+    .badge-green {
+      font-size: 11px;
+      font-weight: 600;
+      background: #f0fdf4;
+      color: #15803d;
+      padding: 3px 10px;
+      border-radius: 100px;
+      border: 1px solid #bbf7d0;
+      white-space: nowrap;
+    }
+
+    /* ── Sections ── */
+    .section-what     { padding: 80px 0; border-bottom: 1px solid var(--border); }
+    .section-features { padding: 80px 0; border-bottom: 1px solid var(--border); background: var(--surface); }
+    .section-how      { padding: 80px 0; border-bottom: 1px solid var(--border); }
+    .section-cta      { padding: 100px 0; background: var(--text-hi); }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 14px;
+    }
+    h2 {
+      font-family: var(--serif);
+      font-size: clamp(28px, 4vw, 46px);
+      font-weight: 400;
+      color: var(--text-hi);
+      line-height: 1.15;
+      letter-spacing: -.015em;
+      margin-bottom: 20px;
+    }
+    h2 em { font-style: italic; color: var(--red); }
+    .section-lead {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--text);
+      line-height: 1.75;
+      margin-bottom: 16px;
+    }
+    .section-lead strong { color: var(--text-hi); font-weight: 500; }
+
+    /* ── Feature cards ── */
+    .feature-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 24px;
+      height: 100%;
+      transition: background .15s;
+    }
+    .feature-card:hover { background: var(--surface); }
+    .feature-icon { font-size: 22px; margin-bottom: 14px; display: block; }
+    .feature-card h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-hi);
+      letter-spacing: -.01em;
+      margin-bottom: 8px;
+    }
+    .feature-card p { font-size: 14px; font-weight: 300; color: var(--text); line-height: 1.68; margin: 0; }
+
+    /* ── How it works ── */
+    .flow-num {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border-hi);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-dim);
+      margin-bottom: 16px;
+      background: var(--surface);
+    }
+    .flow-step:first-child .flow-num {
+      border-color: var(--red);
+      color: var(--red);
+      background: #fff8f8;
+    }
+    .flow-step h4 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-hi);
+      margin-bottom: 6px;
+    }
+    .flow-step p { font-size: 14px; font-weight: 300; color: var(--text-dim); line-height: 1.65; margin: 0; }
+
+    /* ── CTA ── */
+    .section-cta h2 {
+      color: #fff;
+      font-size: clamp(34px, 6vw, 68px);
+    }
+    .section-cta h2 em { color: #ff8080; }
+    .section-cta p { color: rgba(255,255,255,.6); font-size: 17px; font-weight: 300; }
+    .btn-red {
+      background: var(--red);
+      color: #fff;
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 500;
+      text-decoration: none;
+      display: inline-block;
+      transition: background .14s;
+    }
+    .btn-red:hover { background: var(--red-hi); color: #fff; }
+    .btn-light {
+      background: rgba(255,255,255,.1);
+      color: rgba(255,255,255,.85);
+      border: 1px solid rgba(255,255,255,.15);
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 400;
+      text-decoration: none;
+      display: inline-block;
+      transition: background .14s;
+    }
+    .btn-light:hover { background: rgba(255,255,255,.18); color: #fff; }
+
+    /* ── Footer ── */
+    .site-footer {
+      background: var(--bg-2);
+      border-top: 1px solid var(--border);
+      padding: 32px 0;
+    }
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-dim);
+    }
+    .footer-brand span { color: var(--red); }
+    .footer-link {
+      font-size: 13px;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color .12s;
+    }
+    .footer-link:hover { color: var(--text-hi); }
+    .footer-link.docs {
+      font-weight: 600;
+      color: var(--text-hi);
+      background: var(--surface);
+      border: 1px solid var(--border-hi);
+      padding: 5px 12px;
+      border-radius: 6px;
+    }
+    .footer-link.docs:hover { border-color: var(--red); color: var(--red); }
+
+    @keyframes fadeup {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="site-nav">
+  <div class="container-xl">
+    <div class="d-flex align-items-center justify-content-between">
+      <a class="nav-brand" href="#">
+        <svg width="24" height="24" viewBox="0 0 400 310" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <filter id="eg" x="-80%" y="-80%" width="360%" height="360%">
+              <feGaussianBlur stdDeviation="5" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+          <ellipse cx="200" cy="57"  rx="34" ry="16" transform="rotate(0,   200, 57)"  fill="#8b0000"/>
+          <ellipse cx="311" cy="121" rx="34" ry="16" transform="rotate(60,  311, 121)" fill="#8b0000"/>
+          <ellipse cx="311" cy="249" rx="34" ry="16" transform="rotate(120, 311, 249)" fill="#8b0000"/>
+          <ellipse cx="89"  cy="249" rx="34" ry="16" transform="rotate(240, 89,  249)" fill="#8b0000"/>
+          <ellipse cx="89"  cy="121" rx="34" ry="16" transform="rotate(300, 89,  121)" fill="#8b0000"/>
+          <g transform="rotate(30, 200, 185)">
+            <ellipse cx="200" cy="105" rx="26" ry="12" transform="rotate(0,   200, 105)" fill="#d10000"/>
+            <ellipse cx="269" cy="145" rx="26" ry="12" transform="rotate(60,  269, 145)" fill="#d10000"/>
+            <ellipse cx="269" cy="225" rx="26" ry="12" transform="rotate(120, 269, 225)" fill="#d10000"/>
+            <ellipse cx="200" cy="265" rx="26" ry="12" transform="rotate(180, 200, 265)" fill="#d10000"/>
+            <ellipse cx="131" cy="225" rx="26" ry="12" transform="rotate(240, 131, 225)" fill="#d10000"/>
+            <ellipse cx="131" cy="145" rx="26" ry="12" transform="rotate(300, 131, 145)" fill="#d10000"/>
+          </g>
+          <ellipse cx="233" cy="204" rx="18" ry="9" transform="rotate(120, 233, 204)" fill="#5a0000"/>
+          <ellipse cx="200" cy="223" rx="18" ry="9" transform="rotate(180, 200, 223)" fill="#5a0000"/>
+          <ellipse cx="167" cy="204" rx="18" ry="9" transform="rotate(240, 167, 204)" fill="#5a0000"/>
+          <ellipse cx="200" cy="147" rx="18" ry="9" transform="rotate(0,   200, 147)" fill="#cc1111" filter="url(#eg)"/>
+          <ellipse cx="233" cy="166" rx="18" ry="9" transform="rotate(60,  233, 166)" fill="#cc1111" filter="url(#eg)"/>
+          <ellipse cx="167" cy="166" rx="18" ry="9" transform="rotate(300, 167, 166)" fill="#cc1111" filter="url(#eg)"/>
+          <ellipse cx="200" cy="147" rx="18" ry="9" transform="rotate(0,   200, 147)" fill="#8b0000"/>
+          <ellipse cx="233" cy="166" rx="18" ry="9" transform="rotate(60,  233, 166)" fill="#8b0000"/>
+          <ellipse cx="167" cy="166" rx="18" ry="9" transform="rotate(300, 167, 166)" fill="#8b0000"/>
+        </svg>
+        <span class="nav-wordmark"><span>rostro</span>.org</span>
+      </a>
+      <div class="d-flex align-items-center gap-3">
+        <a class="nav-link-item d-none d-md-inline" href="https://docs.rostro.org">Docs</a>
+        <a class="nav-link-item d-none d-md-inline" href="https://github.com/rostro-f/rostro" target="_blank" rel="noopener">GitHub</a>
+        <a class="nav-cta" href="mailto:apollonius21@proton.me">Get early access</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container-xl">
+    <div class="row align-items-center g-5">
+      <div class="col-12 col-lg-6">
+        <div class="hero-eyebrow">
+          <span class="eyebrow-dot"></span>
+          Rostro Name Service
+        </div>
+        <h1>Your name.<br>On the chain.<br><em>In any browser.</em></h1>
+        <p class="hero-sub">alice.rostro.org isn't just a wallet address — it's a real web address. Type it in any browser. It just works.</p>
+        <div class="search-bar" id="searchBar">
+          <input type="text" id="nameInput" placeholder="yourname" spellcheck="false" autocomplete="off" maxlength="63" />
+          <div class="search-divider"></div>
+          <span class="network-fixed">.rostro.org</span>
+          <button class="search-btn" id="searchBtn">Look up</button>
+        </div>
+        <div id="searchResult"></div>
+        <p class="testnet-notice">● Live on Rostro testnet — launching soon</p>
+      </div>
+      <div class="col-12 col-lg-6 d-none d-lg-block">
+        <div class="hero-card">
+          <div class="card-bar">
+            <div class="card-dots"><span></span><span></span><span></span></div>
+            <div class="card-url"><strong>alice.rostro.org</strong></div>
+          </div>
+          <div class="card-row"><span class="card-key">RNS Name</span><span class="card-val red">alice.rostro.org</span></div>
+          <div class="card-row"><span class="card-key">Wallet</span><span class="card-val">5GrwvaEF…8W4</span></div>
+          <div class="card-row"><span class="card-key">Resolves in browser</span><span class="badge-green">✓ Yes</span></div>
+          <div class="card-row"><span class="card-key">Network</span><span class="card-val">Rostro</span></div>
+          <div class="card-row"><span class="card-key">Owned by</span><span class="card-val">alice NFT</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- What is RNS -->
+<section class="section-what">
+  <div class="container-xl">
+    <div class="row">
+      <div class="col-12 col-md-10 col-lg-8">
+        <div class="section-label">What is RNS?</div>
+        <h2>A name that goes<br><em>everywhere</em> you do.</h2>
+        <p class="section-lead">Your wallet address looks like <code style="font-family:monospace;font-size:.85em;background:var(--bg-2);border:1px solid var(--border);border-radius:4px;padding:2px 7px;color:var(--text);">5GrwvaEF…</code>. Nobody remembers that. RNS lets you claim a name like <strong>alice.rostro.org</strong> that points to your wallet and anything else you want to attach to it.</p>
+        <p class="section-lead">And unlike other naming services, RNS names are real DNS. Someone on a regular browser can visit alice.rostro.org and land on your page. No crypto knowledge required. No extension to install. It just works.</p>
+        <p class="section-lead"><strong>rostro.org is the root.</strong> Every name under it is an RNS name living on-chain, owned by you, resolvable by anyone.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section class="section-features">
+  <div class="container-xl">
+    <div class="section-label">Why RNS</div>
+    <h2>Everything a domain <em>should</em> be.</h2>
+    <div class="row g-3 mt-2">
+      <div class="col-12 col-sm-6 col-lg-4">
+        <div class="feature-card">
+          <span class="feature-icon">🔒</span>
+          <h3>Yours on-chain</h3>
+          <p>Your name is an NFT. No one can take it from you.</p>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-4">
+        <div class="feature-card">
+          <span class="feature-icon">🌐</span>
+          <h3>Works in any browser</h3>
+          <p>The Snorkel bridges RNS names to standard DNS. alice.rostro.org resolves for anyone, anywhere — no plugins needed.</p>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-4">
+        <div class="feature-card">
+          <span class="feature-icon">◎</span>
+          <h3>One name, everything</h3>
+          <p>Point your name at a wallet address, a website, a social profile. Update it any time. Your name, your rules.</p>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-4">
+        <div class="feature-card">
+          <span class="feature-icon">🔑</span>
+          <h3>Identity-ready</h3>
+          <p>RNS names integrate with ZK-PKI so your name can carry hardware-verified proof that a real person owns it.</p>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-4">
+        <div class="feature-card">
+          <span class="feature-icon">⚡</span>
+          <h3>Native to Rostro</h3>
+          <p>Runs on Rostro's own infrastructure — fast, purpose-built, and fully sovereign.</p>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-4">
+        <div class="feature-card">
+          <span class="feature-icon">🧹</span>
+          <h3>Self-sustaining</h3>
+          <p>Expired names are cleaned up even if you forget. The registry stays tidy.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How it works -->
+<section class="section-how">
+  <div class="container-xl">
+    <div class="section-label">How it works</div>
+    <h2>From blockchain to browser <em>in one step.</em></h2>
+    <p class="section-lead mb-5">You don't need to understand any of this. But here's what happens when someone types your name.</p>
+    <div class="row g-4">
+      <div class="col-12 col-sm-6 col-lg-3 flow-step">
+        <div class="flow-num">1</div>
+        <h4>Claim your name</h4>
+        <p>Register yourname.rostro.org on-chain. It's minted as an NFT in your wallet.</p>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-3 flow-step">
+        <div class="flow-num">2</div>
+        <h4>Set your records</h4>
+        <p>Point it at your wallet address, a website, or whatever you like.</p>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-3 flow-step">
+        <div class="flow-num">3</div>
+        <h4>Someone visits</h4>
+        <p>Their browser sends a DNS query. The Snorkel reads the chain and responds.</p>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-3 flow-step">
+        <div class="flow-num">4</div>
+        <h4>It just loads</h4>
+        <p>No extension. No crypto wallet. No idea it's on a blockchain.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section-cta text-center">
+  <div class="container-xl">
+    <h2>Claim <em>your name</em><br>before someone else does.</h2>
+    <p class="mb-4">Testnet is launching on Rostro. Names go live soon.</p>
+    <div class="d-flex gap-3 justify-content-center flex-wrap">
+      <a class="btn-red" href="mailto:apollonius21@proton.me">Get early access</a>
+      <a class="btn-light" href="https://docs.rostro.org">Read the docs →</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="container-xl">
+    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+      <div class="footer-brand">
+        <svg width="16" height="16" viewBox="0 0 400 310" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <ellipse cx="200" cy="57"  rx="34" ry="16" transform="rotate(0,   200, 57)"  fill="#8b0000"/>
+          <ellipse cx="311" cy="121" rx="34" ry="16" transform="rotate(60,  311, 121)" fill="#8b0000"/>
+          <ellipse cx="311" cy="249" rx="34" ry="16" transform="rotate(120, 311, 249)" fill="#8b0000"/>
+          <ellipse cx="89"  cy="249" rx="34" ry="16" transform="rotate(240, 89,  249)" fill="#8b0000"/>
+          <ellipse cx="89"  cy="121" rx="34" ry="16" transform="rotate(300, 89,  121)" fill="#8b0000"/>
+          <g transform="rotate(30, 200, 185)">
+            <ellipse cx="200" cy="105" rx="26" ry="12" transform="rotate(0,   200, 105)" fill="#d10000"/>
+            <ellipse cx="269" cy="145" rx="26" ry="12" transform="rotate(60,  269, 145)" fill="#d10000"/>
+            <ellipse cx="200" cy="265" rx="26" ry="12" transform="rotate(180, 200, 265)" fill="#d10000"/>
+            <ellipse cx="131" cy="145" rx="26" ry="12" transform="rotate(300, 131, 145)" fill="#d10000"/>
+          </g>
+          <ellipse cx="200" cy="147" rx="18" ry="9" transform="rotate(0,   200, 147)" fill="#8b0000"/>
+          <ellipse cx="233" cy="166" rx="18" ry="9" transform="rotate(60,  233, 166)" fill="#8b0000"/>
+          <ellipse cx="167" cy="166" rx="18" ry="9" transform="rotate(300, 167, 166)" fill="#8b0000"/>
+        </svg>
+        <span>rostro</span>.org
+      </div>
+      <div class="d-flex align-items-center gap-3 flex-wrap">
+        <a class="footer-link docs" href="https://docs.rostro.org">docs.rostro.org</a>
+        <a class="footer-link" href="https://github.com/rostro-f/rostro" target="_blank" rel="noopener">GitHub</a>
+        <a class="footer-link" href="mailto:apollonius21@proton.me">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function() {
+  const input  = document.getElementById('nameInput');
+  const btn    = document.getElementById('searchBtn');
+  const result = document.getElementById('searchResult');
+
+  const RPC = 'wss://rpc.rostro.org';
+
+  function sanitise(v) {
+    return v.toLowerCase().replace(/[^a-z0-9-]/g, '').replace(/^-+|-+$/g, '');
+  }
+
+  input.addEventListener('input', () => {
+    const clean = sanitise(input.value);
+    if (input.value !== clean) input.value = clean;
+    result.innerHTML = '';
+  });
+  input.addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
+  btn.addEventListener('click', doSearch);
+
+  function showSearching(name) {
+    result.innerHTML = `<p class="searching-msg"><span class="spinner"></span>Looking up <strong>${name}.rostro.org</strong> on Rostro…</p>`;
+  }
+
+  function showResult({ name, available, owner, rpcError }) {
+    const fullName = `${name}.rostro.org`;
+    if (rpcError) {
+      result.innerHTML = `<div class="result-card error"><div class="result-top"><div class="result-icon grey">⚠️</div><div><div class="result-name">${name}<span>.rostro.org</span></div><div class="result-status">Couldn't reach Rostro — check back in a moment</div></div></div></div>`;
+      return;
+    }
+    if (available) {
+      result.innerHTML = `<div class="result-card available"><div class="result-top"><div class="result-icon green">✓</div><div><div class="result-name">${name}<span>.rostro.org</span></div><div class="result-status green">Available on Rostro testnet</div></div></div><div class="result-bottom"><span class="testnet-pill">Rostro Testnet</span><a class="beta-btn" href="mailto:apollonius21@proton.me?subject=Beta access ${fullName}&body=I'd like to register ${fullName} on RNS.">Join the beta to claim it →</a></div></div>`;
+    } else {
+      const ownerStr = owner ? `<div class="result-status red">Registered · ${owner.slice(0,8)}…${owner.slice(-4)}</div>` : `<div class="result-status red">Already registered</div>`;
+      result.innerHTML = `<div class="result-card taken"><div class="result-top"><div class="result-icon red">✗</div><div><div class="result-name">${name}<span>.rostro.org</span></div>${ownerStr}</div></div><div class="result-bottom"><span class="testnet-pill">Rostro Testnet</span><span style="font-size:12px;color:var(--text-dim);">Try a different name</span></div></div>`;
+    }
+  }
+
+  async function doSearch() {
+    const name = sanitise(input.value.trim());
+    if (!name) { input.focus(); return; }
+    btn.disabled = true;
+    btn.textContent = '…';
+    showSearching(name);
+    try {
+      const res = await queryRostro(name);
+      showResult({ name, available: res.isFree, owner: res.owner });
+    } catch(e) {
+      showResult({ name, rpcError: true });
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Look up';
+    }
+  }
+
+  async function queryRostro(name) {
+    return new Promise((resolve, reject) => {
+      const ws = new WebSocket(RPC);
+      const timeout = setTimeout(() => { ws.close(); reject(new Error('timeout')); }, 8000);
+      ws.onopen = () => {
+        ws.send(JSON.stringify({ id: 1, jsonrpc: '2.0', method: 'state_getStorage', params: [storagePlaceholder(name)] }));
+      };
+      ws.onmessage = (e) => {
+        clearTimeout(timeout);
+        ws.close();
+        try {
+          const res = JSON.parse(e.data);
+          if (res.error) { reject(new Error(res.error.message)); return; }
+          resolve({ isFree: res.result === null, owner: null });
+        } catch(err) { reject(err); }
+      };
+      ws.onerror = () => { clearTimeout(timeout); reject(new Error('ws error')); };
+    });
+  }
+
+  function storagePlaceholder(name) {
+    return '0xdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef';
+  }
+})();
+</script>
+
+</body>
+</html>
