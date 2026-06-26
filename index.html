@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rostro · The internet for real people</title>
+  <meta name="description" content="Rostro is the internet built for real people. Create an identity that's yours, host whatever you imagine, and connect with others, in a space made for humans only. No bots. No data brokers." />
+
+  <meta property="og:title" content="This is your story. This is your Rostro." />
+  <meta property="og:description" content="The internet built for real people. Create an identity that's yours, host whatever you imagine, and connect with others, in a space made for humans only." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://rostro.org/" />
+  <meta property="og:image" content="https://rostro.org/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="This is your story. This is your Rostro." />
+  <meta name="twitter:description" content="The internet built for real people. A space made for humans only." />
+  <meta name="twitter:image" content="https://rostro.org/og-image.png" />
+
+  <link rel="icon" href="favicon.ico" sizes="any" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/style.css" />
+
+  <style>
+    /* page-scoped: landing-only patterns (hero portfolio card + product
+       cards section). The hero / eyebrow / h1 / feature-card / usecase /
+       section-cta patterns now live in assets/style.css and are shared. */
+
+    /* Right-column hero card ─ product portfolio at a glance */
+    .portfolio-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,.05), 0 2px 8px rgba(0,0,0,.03);
+    }
+    .portfolio-header {
+      background: var(--text-hi);
+      color: #fff;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .portfolio-title {
+      font-family: var(--mono) !important;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #fff;
+    }
+    .portfolio-title span { color: #f4a3a3; }
+    .portfolio-meta {
+      font-family: var(--mono) !important;
+      font-size: 10px;
+      color: #9e9890;
+      letter-spacing: .06em;
+    }
+    .portfolio-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .portfolio-row:last-child { border-bottom: none; }
+    .portfolio-name {
+      font-family: var(--serif) !important;
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--text-hi);
+      letter-spacing: -.01em;
+      line-height: 1.1;
+    }
+    .portfolio-desc {
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-top: 2px;
+    }
+    .badge-live {
+      font-family: var(--mono) !important;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .06em;
+      color: #15803d;
+      background: #f0fdf4;
+      padding: 4px 10px;
+      border-radius: 100px;
+      border: 1px solid #86efac;
+      white-space: nowrap;
+      text-transform: uppercase;
+    }
+    .badge-design {
+      font-family: var(--mono) !important;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .06em;
+      color: var(--text-dim);
+      background: var(--bg-2);
+      padding: 4px 10px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      white-space: nowrap;
+      text-transform: uppercase;
+    }
+    .badge-soon {
+      font-family: var(--mono) !important;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .06em;
+      color: #92600a;
+      background: #fffaf0;
+      padding: 4px 10px;
+      border-radius: 100px;
+      border: 1px solid #f0d8a8;
+      white-space: nowrap;
+      text-transform: uppercase;
+    }
+
+    /* Products section: full cards */
+    .section-products { padding: 96px 0; border-bottom: 1px solid var(--border); }
+    .product-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 32px;
+      height: 100%;
+      transition: border-color .15s, box-shadow .15s;
+      position: relative;
+    }
+    .product-card:hover {
+      border-color: var(--border-hi);
+      box-shadow: 0 6px 24px rgba(0,0,0,.05);
+    }
+    .product-mono {
+      font-family: var(--mono) !important;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 10px;
+    }
+    .product-card h3 {
+      font-family: var(--serif) !important;
+      font-size: 32px !important;
+      font-weight: 400;
+      color: var(--red);
+      margin: 0 0 12px;
+      letter-spacing: -.02em;
+      line-height: 1.1;
+    }
+    .product-tagline {
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .product-spec {
+      font-family: var(--mono) !important;
+      font-size: 12px;
+      color: var(--text-dim);
+      line-height: 1.7;
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
+      margin-top: 18px;
+    }
+    .product-status {
+      position: absolute;
+      top: 28px;
+      right: 28px;
+    }
+
+    /* Story: editorial narrative centerpiece */
+    .story { padding: 124px 0; border-bottom: 1px solid var(--border); }
+    .story-inner { max-width: 760px; margin: 0 auto; text-align: center; }
+    .story-step { margin-bottom: 64px; }
+    .story-step:last-child { margin-bottom: 0; }
+    .story-label {
+      font-family: var(--mono) !important;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 18px;
+    }
+    .story-beat {
+      font-family: var(--serif) !important;
+      font-size: clamp(25px, 3.2vw, 35px);
+      line-height: 1.38;
+      letter-spacing: -.01em;
+      color: var(--text-hi);
+      margin: 0;
+    }
+    .story-beat.rise strong {
+      font-weight: 400;
+      font-style: italic;
+      color: var(--red);
+    }
+
+    /* Who you become: portrait cards */
+    .becomes-section { padding: 96px 0; border-bottom: 1px solid var(--border); }
+    .becomes-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 32px;
+      height: 100%;
+      transition: border-color .15s, box-shadow .15s, transform .15s;
+    }
+    .becomes-card:hover {
+      border-color: var(--border-hi);
+      box-shadow: 0 8px 28px rgba(0,0,0,.06);
+      transform: translateY(-2px);
+    }
+    .becomes-tag {
+      font-family: var(--mono) !important;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 16px;
+    }
+    .becomes-card p {
+      font-family: var(--serif) !important;
+      font-size: 23px;
+      line-height: 1.32;
+      letter-spacing: -.01em;
+      color: var(--text-hi);
+      margin: 0;
+    }
+    .becomes-card p em { color: var(--red); font-style: italic; }
+
+    /* Brand logo standing in for the word "Rostro" */
+    .inline-logo { height: .72em; width: auto; vertical-align: -.04em; }
+    .cta-logo { display: block; height: 96px; width: auto; margin: 24px auto 0; }
+
+  </style>
+</head>
+<body>
+
+<!-- ───────────────────────────── Nav ─────────────────────────────── -->
+<nav class="site-nav">
+  <div class="container-xl">
+    <div class="d-flex align-items-center justify-content-between">
+      <a class="nav-brand" href="index.html" aria-label="Rostro home">
+        <img class="nav-logo" src="assets/rostro-lockup.svg" alt="Rostro" />
+      </a>
+      <div class="d-flex align-items-center gap-3">
+        <a class="nav-link-item hide-mobile" href="https://docs.rostro.org">Docs</a>
+        <a class="nav-link-item hide-mobile" href="https://github.com/RostroF/Rostro" target="_blank" rel="noopener">GitHub</a>
+        <a class="nav-cta" href="mailto:hello@rostro.org">Get early access</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ───────────────────────────── Hero ────────────────────────────── -->
+<section class="hero">
+  <div class="container-xl">
+    <div class="row align-items-center g-5">
+      <div class="col-12 col-lg-6">
+        <h1>Build your own world online.<br><em>Own it for good.</em></h1>
+        <p class="hero-sub">The one place online that's truly yours, and the sky is the limit.</p>
+        <div class="btn-row">
+          <a href="mailto:hello@rostro.org" class="btn btn-primary">Get early access</a>
+          <a href="#story" class="btn">See how it works</a>
+        </div>
+        <p class="testnet-notice">⬡ Testnet is coming soon.</p>
+      </div>
+      <div class="col-12 col-lg-6 d-none d-lg-block">
+        <div class="portfolio-card">
+          <div class="portfolio-header">
+            <div class="portfolio-title">Your <span>Rostro</span></div>
+            <div class="portfolio-meta">humans only</div>
+          </div>
+          <div class="portfolio-row">
+            <div>
+              <div class="portfolio-name">alex.rostro</div>
+              <div class="portfolio-desc">Your identity, proven human</div>
+            </div>
+            <span class="badge-live">Verified</span>
+          </div>
+          <div class="portfolio-row">
+            <div>
+              <div class="portfolio-name">Your space</div>
+              <div class="portfolio-desc">Host whatever you imagine</div>
+            </div>
+            <span class="badge-design">Yours</span>
+          </div>
+          <div class="portfolio-row">
+            <div>
+              <div class="portfolio-name">Your circle</div>
+              <div class="portfolio-desc">Message real people, privately</div>
+            </div>
+            <span class="badge-design">Private</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────────────────────── Story ───────────────────────────── -->
+<section id="story" class="story">
+  <div class="container-xl">
+    <div class="story-inner">
+      <div class="story-step">
+        <div class="story-label">Once upon a time on the internet</div>
+        <p class="story-beat">You built something real. A following, a craft, a business made of late nights and long odds. You did everything right and kept every promise.</p>
+      </div>
+      <div class="story-step">
+        <div class="story-label">But one day</div>
+        <p class="story-beat">The platform decided you were done, and all of it was gone. No warning. No way to appeal. No one to call.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ────────────────────────── Who you become ─────────────────────── -->
+<section class="becomes-section">
+  <div class="container-xl">
+    <div class="section-label">Have an idea?</div>
+    <h2><em>Smoke test it</em> on <img class="inline-logo" src="assets/rostro-wordmark.svg" alt="Rostro" />.</h2>
+
+    <div class="row g-4 mt-2">
+      <div class="col-12 col-md-4">
+        <div class="becomes-card">
+          <div class="becomes-tag">The creator</div>
+          <p>Work that's <em>unmistakably yours</em>, in a feed full of fakes.</p>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="becomes-card">
+          <div class="becomes-tag">The builder</div>
+          <p>An idea shipped <em>on a lunch break</em>, with no platform to ask and no cut to pay.</p>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="becomes-card">
+          <div class="becomes-tag">The one who got burned</div>
+          <p>This time, <em>you own</em> the ground you stand on.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────── CTA ───────────────────────────────── -->
+<section class="section-cta">
+  <div class="container-xl">
+    <h2>This is your story.<br>This is your</h2>
+    <img class="cta-logo" src="assets/rostro-lockup.svg" alt="Rostro" />
+    <p>Be the author of your own journey, in a space built for real people.</p>
+    <div class="d-flex gap-3 justify-content-center flex-wrap">
+      <a class="btn btn-primary" href="mailto:hello@rostro.org">Get early access</a>
+      <a class="btn" href="mission/index.html">Read our mission</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────── Footer ────────────────────────────── -->
+<footer class="site-footer">
+  <div class="container-xl">
+    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+      <a class="footer-brand" href="index.html" aria-label="Rostro home">
+        <img class="footer-logo" src="assets/rostro-lockup.svg" alt="Rostro" />
+      </a>
+      <div class="d-flex align-items-center gap-3 flex-wrap">
+        <a class="footer-link" href="https://docs.rostro.org">docs.rostro.org</a>
+        <a class="footer-link" href="whitepaper/index.html">Whitepaper</a>
+        <a class="footer-link" href="https://blog.rostro.org">Blog</a>
+        <a class="footer-link" href="https://github.com/RostroF/Rostro" target="_blank" rel="noopener">GitHub</a>
+        <a class="footer-link" href="privacy/index.html">Privacy</a>
+        <a class="footer-link" href="terms/index.html">Terms</a>
+        <a class="footer-link" href="mailto:hello@rostro.org">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
