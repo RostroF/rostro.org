@@ -16,9 +16,9 @@
   <meta name="twitter:description" content="The internet built for real people. A space made for humans only." />
   <meta name="twitter:image" content="https://rostro.org/og-image.png" />
 
-  <link rel="icon" href="favicon.ico" sizes="any" />
-  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -198,6 +198,7 @@
       letter-spacing: -.01em;
       color: var(--text-hi);
       margin: 0;
+      max-width: none;
     }
     .story-beat.rise strong {
       font-weight: 400;
@@ -251,13 +252,18 @@
 <nav class="site-nav">
   <div class="container-xl">
     <div class="d-flex align-items-center justify-content-between">
-      <a class="nav-brand" href="index.html" aria-label="Rostro home">
-        <img class="nav-logo" src="assets/rostro-lockup.svg" alt="Rostro" />
+      <a class="nav-brand" href="/" aria-label="Rostro home">
+        <img class="nav-logo" src="/assets/rostro-lockup.svg" alt="Rostro" />
       </a>
-      <div class="d-flex align-items-center gap-3">
-        <a class="nav-link-item hide-mobile" href="https://docs.rostro.org">Docs</a>
-        <a class="nav-link-item hide-mobile" href="https://github.com/RostroF/Rostro" target="_blank" rel="noopener">GitHub</a>
-        <a class="nav-cta" href="mailto:hello@rostro.org">Get early access</a>
+      <div class="nav-menu-wrap">
+        <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-menu">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="nav-menu" id="nav-menu">
+          <a class="nav-menu-item" href="https://docs.rostro.org">Docs</a>
+          <a class="nav-menu-item" href="https://github.com/RostroF/Rostro" target="_blank" rel="noopener">GitHub</a>
+          <a class="nav-menu-item nav-menu-cta" href="mailto:contact@rostro.org">Get early access</a>
+        </div>
       </div>
     </div>
   </div>
@@ -271,7 +277,7 @@
         <h1>Build your own world online.<br><em>Own it for good.</em></h1>
         <p class="hero-sub">The one place online that's truly yours, and the sky is the limit.</p>
         <div class="btn-row">
-          <a href="mailto:hello@rostro.org" class="btn btn-primary">Get early access</a>
+          <a href="mailto:contact@rostro.org" class="btn btn-primary">Get early access</a>
           <a href="#story" class="btn">See how it works</a>
         </div>
         <p class="testnet-notice">⬡ Testnet is coming soon.</p>
@@ -329,25 +335,25 @@
 <section class="becomes-section">
   <div class="container-xl">
     <div class="section-label">Have an idea?</div>
-    <h2><em>Smoke test it</em> on <img class="inline-logo" src="assets/rostro-wordmark.svg" alt="Rostro" />.</h2>
+    <h2><em>Smoke test it</em> on <img class="inline-logo" src="/assets/rostro-wordmark.svg" alt="Rostro" />.</h2>
 
     <div class="row g-4 mt-2">
       <div class="col-12 col-md-4">
         <div class="becomes-card">
           <div class="becomes-tag">The creator</div>
-          <p>Work that's <em>unmistakably yours</em>, in a feed full of fakes.</p>
+          <p>Work that's <em>unmistakably yours</em>, for your audience.</p>
         </div>
       </div>
       <div class="col-12 col-md-4">
         <div class="becomes-card">
           <div class="becomes-tag">The builder</div>
-          <p>An idea shipped <em>on a lunch break</em>, with no platform to ask and no cut to pay.</p>
+          <p>An idea shipped <em>on a lunch break</em>, with minimal barriers.</p>
         </div>
       </div>
       <div class="col-12 col-md-4">
         <div class="becomes-card">
           <div class="becomes-tag">The one who got burned</div>
-          <p>This time, <em>you own</em> the ground you stand on.</p>
+          <p>This time, <em>no bot</em> to separate you from your work on someone else's land.</p>
         </div>
       </div>
     </div>
@@ -358,11 +364,11 @@
 <section class="section-cta">
   <div class="container-xl">
     <h2>This is your story.<br>This is your</h2>
-    <img class="cta-logo" src="assets/rostro-lockup.svg" alt="Rostro" />
+    <img class="cta-logo" src="/assets/rostro-lockup.svg" alt="Rostro" />
     <p>Be the author of your own journey, in a space built for real people.</p>
     <div class="d-flex gap-3 justify-content-center flex-wrap">
-      <a class="btn btn-primary" href="mailto:hello@rostro.org">Get early access</a>
-      <a class="btn" href="mission/index.html">Read our mission</a>
+      <a class="btn btn-primary" href="mailto:contact@rostro.org">Get early access</a>
+      <a class="btn" href="/mission/">Read our mission</a>
     </div>
   </div>
 </section>
@@ -371,21 +377,21 @@
 <footer class="site-footer">
   <div class="container-xl">
     <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
-      <a class="footer-brand" href="index.html" aria-label="Rostro home">
-        <img class="footer-logo" src="assets/rostro-lockup.svg" alt="Rostro" />
+      <a class="footer-brand" href="/" aria-label="Rostro home">
+        <img class="footer-logo" src="/assets/rostro-lockup.svg" alt="Rostro" />
       </a>
       <div class="d-flex align-items-center gap-3 flex-wrap">
         <a class="footer-link" href="https://docs.rostro.org">docs.rostro.org</a>
-        <a class="footer-link" href="whitepaper/index.html">Whitepaper</a>
         <a class="footer-link" href="https://blog.rostro.org">Blog</a>
         <a class="footer-link" href="https://github.com/RostroF/Rostro" target="_blank" rel="noopener">GitHub</a>
-        <a class="footer-link" href="privacy/index.html">Privacy</a>
-        <a class="footer-link" href="terms/index.html">Terms</a>
-        <a class="footer-link" href="mailto:hello@rostro.org">Contact</a>
+        <a class="footer-link" href="/privacy/">Privacy</a>
+        <a class="footer-link" href="/terms/">Terms</a>
+        <a class="footer-link" href="mailto:contact@rostro.org">Contact</a>
       </div>
     </div>
   </div>
 </footer>
 
+  <script src="/assets/nav.js" defer></script>
 </body>
 </html>

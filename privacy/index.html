@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — Rostro</title>
+  <meta name="description" content="How Rostro and its applications handle data. Privacy by architecture: minimal collection, keys on device, end-to-end encryption, no central message server." />
+
+  <meta property="og:title" content="Privacy Policy — Rostro" />
+  <meta property="og:description" content="Privacy by architecture: minimal collection, keys on device, end-to-end encryption, no central message server." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://rostro.org/privacy/" />
+  <meta property="og:image" content="https://rostro.org/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://rostro.org/og-image.png" />
+
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+
+<!-- ───────────────────────────── Nav ─────────────────────────────── -->
+<nav class="site-nav">
+  <div class="container-xl">
+    <div class="d-flex align-items-center justify-content-between">
+      <a class="nav-brand" href="/" aria-label="Rostro home">
+        <img class="nav-logo" src="/assets/rostro-lockup.svg" alt="Rostro" />
+      </a>
+      <div class="nav-menu-wrap">
+        <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-menu">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="nav-menu" id="nav-menu">
+          <a class="nav-menu-item" href="https://docs.rostro.org">Docs</a>
+          <a class="nav-menu-item" href="https://github.com/RostroF/Rostro" target="_blank" rel="noopener">GitHub</a>
+          <a class="nav-menu-item nav-menu-cta" href="mailto:contact@rostro.org">Get early access</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ───────────────────────────── Hero ────────────────────────────── -->
+<section class="hero" style="padding-bottom: 40px;">
+  <div class="container-xl">
+    <div class="hero-eyebrow"><span class="eyebrow-dot"></span>Legal</div>
+    <h1>Privacy <em>Policy</em>.</h1>
+    <p class="hero-sub">Rostro is engineered so that there is almost nothing to collect. This policy explains what that means in practice — for this website and for the applications built on the Rostro network.</p>
+    <p class="testnet-notice">Last updated: June 25, 2026</p>
+  </div>
+</section>
+
+<!-- ───────────────────────────── Body ────────────────────────────── -->
+<section style="padding-top: 24px;">
+  <div class="container-xl">
+    <div class="row">
+      <div class="col-12 col-md-10 col-lg-9">
+
+        <div class="section-label">01 — Scope</div>
+        <h2>What this policy covers.</h2>
+        <p class="doc-lead">This policy applies to the website at <strong>rostro.org</strong> and to the client applications published by the Rostro project — including the Rostro mobile wallet and messaging application. It describes the limited information that is processed when you use them, and the information that, by design, is never collected.</p>
+        <p>Rostro is a decentralized network. Much of what happens when you use a Rostro application happens on your own device or on a peer-to-peer network that the Rostro project does not operate as a central server. Where that is the case, this policy says so plainly.</p>
+
+        <div class="section-label">02 — Our approach</div>
+        <h2>Privacy by architecture, not by promise.</h2>
+        <p>Rostro is built so that personal data does not need to be collected in order for the system to work. Cryptographic keys are generated and held on your device, often inside a hardware secure element, and are never transmitted to us. Messages are end-to-end encrypted and routed through the network without a central server that can read them. The network is designed to be cryptographically incapable of identifying you.</p>
+        <div class="callout"><strong>We cannot disclose what we do not hold.</strong> The strongest privacy guarantee is the absence of a database to compromise.</div>
+
+        <div class="section-label">03 — What we do not collect</div>
+        <h2>Information we never receive.</h2>
+        <p>In the normal operation of the Rostro applications, we do not collect or have access to:</p>
+        <ul>
+          <li>Your name, email address, phone number, or government identity documents.</li>
+          <li>Your biometric data or facial images.</li>
+          <li>Your private keys, recovery phrases, or wallet seed material.</li>
+          <li>The plaintext contents of your messages, or your contact list.</li>
+          <li>Your precise location.</li>
+          <li>Advertising identifiers used to track you across other apps and websites.</li>
+        </ul>
+
+        <div class="section-label">04 — What is processed</div>
+        <h2>The limited data that does flow.</h2>
+        <p><strong>This website.</strong> rostro.org is a static site hosted on GitHub Pages. Like any web server, the host automatically logs standard technical request data — such as your IP address, browser type, and the page requested — for security and operational purposes. The site also loads fonts and stylesheets from third-party content delivery networks (see Section 6), which receive your IP address as a necessary part of serving those files. We do not place advertising or cross-site tracking cookies on this site.</p>
+        <p><strong>The applications.</strong> Account keys are created and stored on your device. To use the network, the application broadcasts transactions and encrypted payloads to peer-to-peer nodes. This network traffic necessarily exposes technical metadata such as IP addresses to the nodes that relay it; Rostro's design works to minimize what any single relay can learn, but no network can hide the fact that traffic exists. If you choose to use a third-party node or RPC endpoint, that operator's own practices apply.</p>
+
+        <div class="section-label">05 — The blockchain is public</div>
+        <h2>What you write on-chain stays on-chain.</h2>
+        <p>Rostro is a public blockchain. Data you deliberately publish to it — for example a name registration or a transaction — is, by the nature of the technology, public, permanent, and outside anyone's ability to delete, including ours. Personhood and identity proofs are engineered to be anonymous: the chain can verify that you are a unique human without recording who you are.</p>
+        <div class="callout"><strong>Do not place information you wish to keep private into a public on-chain field.</strong> Once written, it cannot be retracted.</div>
+
+        <div class="section-label">06 — Third-party services</div>
+        <h2>Who else is in the path.</h2>
+        <p>To deliver this website and applications, we rely on a small number of third-party providers who may process technical data such as your IP address:</p>
+        <ul>
+          <li><strong>GitHub Pages</strong> — hosts this website and serves its files.</li>
+          <li><strong>Google Fonts, jsDelivr, and Cloudflare CDNs</strong> — serve fonts, stylesheets, and scripts referenced by this site.</li>
+          <li><strong>App distribution platforms</strong> — if you install a Rostro application from a platform such as Google Play or the Apple App Store, that platform's privacy policy governs the data it collects about the download and your device.</li>
+        </ul>
+        <p>These providers act under their own privacy policies. We do not sell or rent any data, because there is no personal data store to sell from.</p>
+
+        <div class="section-label">07 — Children</div>
+        <h2>Not directed to children.</h2>
+        <p>Rostro is not intended for children. The network's identity layer is designed for adults, and certain functions require an attestation that the holder is an adult. We do not knowingly collect information from children.</p>
+
+        <div class="section-label">08 — Security</div>
+        <h2>How the design protects you.</h2>
+        <p>Keys are anchored in hardware where the device supports it, so private material never leaves the secure element. Messaging is end-to-end encrypted. The network software is open source and auditable. No system is perfectly secure, but the architecture is built to remove the central honeypots that make breaches catastrophic.</p>
+
+        <div class="section-label">09 — Your choices</div>
+        <h2>Control and contact.</h2>
+        <p>Because we do not maintain accounts or personal profiles, there is generally no personal data held about you for us to access, correct, or delete. You control your keys and your data on your own device. If you have a question about this policy or believe we hold information about you, contact us and we will respond.</p>
+
+        <div class="section-label">10 — Changes</div>
+        <h2>Updates to this policy.</h2>
+        <p>We may update this policy as the project evolves or as the law requires. Material changes will be reflected by the "Last updated" date at the top of this page. Continued use after an update constitutes acceptance of the revised policy.</p>
+
+        <div class="section-label">11 — Contact</div>
+        <h2>Reach us.</h2>
+        <p>Questions about privacy can be sent to <a href="mailto:contact@rostro.org">contact@rostro.org</a>.</p>
+
+        <div class="btn-row">
+          <a href="/terms/" class="btn btn-primary">Read the Terms</a>
+          <a href="/" class="btn">Back to home</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────── Footer ────────────────────────────── -->
+<footer class="site-footer">
+  <div class="container-xl">
+    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+      <a class="footer-brand" href="/" aria-label="Rostro home">
+        <img class="footer-logo" src="/assets/rostro-lockup.svg" alt="Rostro" />
+      </a>
+      <div class="d-flex align-items-center gap-3 flex-wrap">
+        <a class="footer-link" href="/">Home</a>
+        <a class="footer-link" href="/mission/">Mission</a>
+        <a class="footer-link" href="https://docs.rostro.org">docs.rostro.org</a>
+        <a class="footer-link" href="https://github.com/RostroF/Rostro" target="_blank" rel="noopener">GitHub</a>
+        <a class="footer-link" href="/privacy/">Privacy</a>
+        <a class="footer-link" href="/terms/">Terms</a>
+        <a class="footer-link" href="mailto:contact@rostro.org">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  <script src="/assets/nav.js" defer></script>
+</body>
+</html>
