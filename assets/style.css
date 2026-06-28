@@ -549,6 +549,7 @@ pre code {
   margin-bottom: 14px;
 }
 .section-cta p { font-size: 15px; color: var(--text); max-width: 540px; margin: 0 auto 28px; }
+.cta-logo { display: block; height: 96px; width: auto; margin: 24px auto 0; }
 
 /* ── Footer ─────────────────────────────────────────────────────── */
 
